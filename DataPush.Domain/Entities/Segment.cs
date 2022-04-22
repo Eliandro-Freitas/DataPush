@@ -8,4 +8,7 @@ public class Segment : BaseEntity
     }
 
     public string Name { get; set; }
+
+    private readonly List<Course> _courses = new ();
+    public IReadOnlyCollection<Course> Courses => _courses;
 }

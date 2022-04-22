@@ -8,21 +8,20 @@ namespace DataPush.Api.Configurations
     {
         public CourseMapping()
         {
-            CreateMap<Course, CourseResult>()
-                .ForMember(destination => destination.Description, map => map
-                  .MapFrom(source => source.Description))
-
-                .ForMember(destination => destination.Name, map => map
-                  .MapFrom(source => source.Name))
-
-                .ForMember(destination => destination.Duration, map => map
-                  .MapFrom(source => source.Duration))
-
-                .ForMember(destination => destination.SegmentId, map => map
-                  .MapFrom(source => source.SegmentId))
-
-                .ForMember(destination => destination.SegmentName, map => map
-                  .MapFrom(source => source.Segment.Name));
+            CourseMap();
         }
+
+        private void CourseMap() 
+            => CreateMap<Course, CourseResult>()
+                .ForMember(destination => destination.Description,
+                    map => map.MapFrom(source => source.Description))
+                .ForMember(destination => destination.Name,
+                    map => map.MapFrom(source => source.Name))
+                .ForMember(destination => destination.Duration,
+                    map => map.MapFrom(source => source.Duration))
+                .ForMember(destination => destination.SegmentId,
+                    map => map.MapFrom(source => source.SegmentId))
+                .ForMember(destination => destination.SegmentName,
+                    map => map.MapFrom(source => source.Segment.Name));
     }
 }
