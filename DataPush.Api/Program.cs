@@ -1,13 +1,20 @@
+using DataPush.Domain.Repositories;
+using DataPush.Infra;
+using DataPush.Infra.Repositories;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+var service = builder.Services;
+service.AddControllers();
+service.AddEndpointsApiExplorer();
+service.AddSwaggerGen();
+service.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+service.AddMediatR(Assembly.Load("DataPush.Domain"));
+service.AddDbContext<ApplicationContext>(opt => opt.UseInMemoryDatabase("ConnectionString"));
+service.AddTransient<ISegmentRepository, SegmentRepository>();
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddMediatR(Assembly.Load("DataPush.Domain"));
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

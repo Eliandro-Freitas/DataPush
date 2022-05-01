@@ -2,5 +2,5 @@
 
 public abstract class BaseEntity
 {
-    public static Guid Id => Guid.NewGuid();
+    public Guid Id { get; private init; } = Guid.NewGuid();
 }

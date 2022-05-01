@@ -1,6 +1,6 @@
 using AutoMapper;
-using DataPush.Domain.Entities;
 using DataPush.Domain.Results;
+using DataPush.Infra;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataPush.Api.Controllers
@@ -21,17 +21,7 @@ namespace DataPush.Api.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<CourseResult> Get()
         {
-            var courses = Enumerable.Range(1, 5).Select(index => new Course(
-                "Eliandro",
-                "cor",
-                "descricao",
-                100,
-                Guid.NewGuid()
-            ))
-            .ToArray();
-
-            var courseResult = _mapper.Map<IEnumerable<CourseResult>>(courses);
-            return courseResult;
+            return null;
         }
     }
 }
