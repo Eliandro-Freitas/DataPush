@@ -2,7 +2,6 @@
 
 namespace DataPush.Domain.Entities;
 
-[Table("Instructors")]
 public class Instructor : BaseEntity
 {
     public Instructor() { }

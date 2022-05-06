@@ -4,11 +4,12 @@ using DataPush.Domain.Results;
 
 namespace DataPush.Api.Configurations
 {
-    public class CourseMapping : Profile
+    public class MapResults : Profile
     {
-        public CourseMapping()
+        public MapResults()
         {
             CourseMap();
+            SegmentMap();
         }
 
         private void CourseMap() 
@@ -23,5 +24,12 @@ namespace DataPush.Api.Configurations
                     map => map.MapFrom(source => source.SegmentId))
                 .ForMember(destination => destination.SegmentName,
                     map => map.MapFrom(source => source.Segment.Name));
-    }
+
+        private void SegmentMap()
+            => CreateMap<Segment, SegmentResult>()
+                .ForMember(destination => destination.Id,
+                    map => map.MapFrom(source => source.Id))
+                .ForMember(destination => destination.Name,
+                    map => map.MapFrom(destination => destination.Name));
+        }
 }

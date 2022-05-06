@@ -10,7 +10,6 @@ namespace DataPush.Infra.Map
         {
             builder.ToTable("Instructor");
             builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.Segment).WithMany(x => x.Instructors).HasForeignKey(x => x.SegmentId);
         }
     }
 }

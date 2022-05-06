@@ -2,7 +2,6 @@
 
 namespace DataPush.Domain.Entities;
 
-[Table("Courses")]
 public class Course : BaseEntity
 {
     public Course() { }

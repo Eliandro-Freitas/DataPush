@@ -1,3 +1,4 @@
+using DataPush.Api.Configurations;
 using DataPush.Domain.Repositories;
 using DataPush.Infra;
 using DataPush.Infra.Repositories;
@@ -6,15 +7,18 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false, true).Build();
+var connectionString = configuration.GetSection("ConnectionString").Value;
+
 var service = builder.Services;
 service.AddControllers();
 service.AddEndpointsApiExplorer();
 service.AddSwaggerGen();
 service.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 service.AddMediatR(Assembly.Load("DataPush.Domain"));
-service.AddDbContext<ApplicationContext>(opt => opt.UseInMemoryDatabase("ConnectionString"));
+service.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(connectionString)
+    .ConfigureLoggingCacheTime(TimeSpan.FromMinutes(5)));
 service.AddTransient<ISegmentRepository, SegmentRepository>();
-
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -25,4 +29,5 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+app.CreateTables();
 app.Run();
