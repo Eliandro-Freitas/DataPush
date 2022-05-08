@@ -34,7 +34,7 @@ namespace DataPush.Api.Controllers
         public ActionResult<Task> GetCourse(Guid courseId)
         {
             var courses = _courseRepository.Get(courseId);
-            if (courses is null) return NotFound("Nenhum Curso encontrado");
+            if (courses is null) return NotFound($"Curso não encontrado {courseId}");
 
             var coursesResult = _mapper.Map<CourseResult>(courses);
             return Ok(coursesResult);
