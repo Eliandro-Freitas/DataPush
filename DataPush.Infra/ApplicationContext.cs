@@ -7,7 +7,6 @@ namespace DataPush.Infra
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            CreateTables();
         }
 
         public DbSet<Course> Courses { get; set; }
@@ -20,11 +19,5 @@ namespace DataPush.Infra
 
         protected override void OnModelCreating(ModelBuilder builder)
             => builder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
-
-        private void CreateTables()
-        {
-            Database.EnsureDeleted();
-            Database.EnsureDeleted();
-        }
     }
 }

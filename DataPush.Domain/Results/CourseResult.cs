@@ -1,9 +1,11 @@
 ﻿namespace DataPush.Domain.Results
 {
     public record CourseResult(
+        Guid Id,
         string Name,
         string Description,
         int Duration,
-        string SegmentName,
-        Guid SegmentId);
+        Guid SegmentId,
+        string SegmentColor,
+        string SegmentName);
 }

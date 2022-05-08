@@ -19,7 +19,6 @@ namespace DataPush.Infra.Map
         {
             builder.Property(x => x.Name).HasColumnType("varchar").HasMaxLength(200);
             builder.Property(x => x.Description).HasColumnType("varchar").HasMaxLength(500);
-            builder.Property(x => x.Color).HasColumnType("varchar").HasMaxLength(100);
             builder.Property(x => x.Difficulty).HasColumnType("varchar").HasMaxLength(100);
         }
     }

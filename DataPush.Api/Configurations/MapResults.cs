@@ -14,6 +14,8 @@ namespace DataPush.Api.Configurations
 
         private void CourseMap() 
             => CreateMap<Course, CourseResult>()
+                .ForMember(destination => destination.Id,
+                    map => map.MapFrom(source => source.Id))
                 .ForMember(destination => destination.Description,
                     map => map.MapFrom(source => source.Description))
                 .ForMember(destination => destination.Name,
@@ -23,13 +25,17 @@ namespace DataPush.Api.Configurations
                 .ForMember(destination => destination.SegmentId,
                     map => map.MapFrom(source => source.SegmentId))
                 .ForMember(destination => destination.SegmentName,
-                    map => map.MapFrom(source => source.Segment.Name));
+                    map => map.MapFrom(source => source.Segment.Name))
+                .ForMember(destination => destination.SegmentColor,
+                    map => map.MapFrom(source => source.Segment.Color));
 
         private void SegmentMap()
             => CreateMap<Segment, SegmentResult>()
                 .ForMember(destination => destination.Id,
                     map => map.MapFrom(source => source.Id))
                 .ForMember(destination => destination.Name,
-                    map => map.MapFrom(destination => destination.Name));
+                    map => map.MapFrom(destination => destination.Name))
+                .ForMember(destination => destination.Color,
+                    map => map.MapFrom(destination => destination.Color));
         }
 }

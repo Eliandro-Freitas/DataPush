@@ -1,3 +1,3 @@
 ﻿namespace DataPush.Domain.Results;
 
-public record SegmentResult(Guid Id, string Name);
+public record SegmentResult(Guid Id, string Name, string Color);

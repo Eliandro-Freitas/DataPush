@@ -1,27 +1,55 @@
 using AutoMapper;
+using DataPush.Domain.Repositories;
 using DataPush.Domain.Results;
-using DataPush.Infra;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataPush.Api.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
     public class CourseController : ControllerBase
     {
-        private readonly ILogger<CourseController> _logger;
         private readonly IMapper _mapper;
+        private readonly ICourseRepository _courseRepository;
 
-        public CourseController(ILogger<CourseController> logger, IMapper mapper)
+        public CourseController(IMapper mapper, ICourseRepository courseRepository)
         {
-            _logger = logger;
             _mapper = mapper;
+            _courseRepository = courseRepository;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<CourseResult> Get()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CourseResult[]))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("v1/courses")]
+        public ActionResult<Task> GetCourses()
         {
-            return null;
+            var courses = _courseRepository.Get();
+            if (courses is null || !courses.Any()) return NotFound("Nenhum Curso encontrado");
+
+            var coursesResult = _mapper.Map<IEnumerable<CourseResult>>(courses);
+            return Ok(coursesResult);
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CourseResult))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("v1/courses/{courseId:Guid}")]
+        public ActionResult<Task> GetCourse(Guid courseId)
+        {
+            var courses = _courseRepository.Get(courseId);
+            if (courses is null) return NotFound("Nenhum Curso encontrado");
+
+            var coursesResult = _mapper.Map<CourseResult>(courses);
+            return Ok(coursesResult);
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CourseResult))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpGet("v1/courses/segments/{segmentId:Guid}")]
+        public ActionResult<Task> GetCoursesBySegmentId(Guid segmentId)
+        {
+            var courses = _courseRepository.GetCoursesBySegmentId(segmentId);
+            if (courses is null) return NotFound("Nenhum Curso encontrado");
+
+            var coursesResult = _mapper.Map<IEnumerable<CourseResult>>(courses);
+            return Ok(coursesResult);
         }
     }
 }

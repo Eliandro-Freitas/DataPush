@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace DataPush.Domain.Entities;
+﻿namespace DataPush.Domain.Entities;
 
 public class User : BaseEntity
 {

@@ -7,12 +7,14 @@ public class Segment : BaseEntity
 {
     private Segment() { }
 
-    public Segment(string name)
+    public Segment(string name, string color)
     {
         Name = name;
+        Color = color;
     }
 
-    public string Name { get; set; }
+    public string Name { get; private set; }
+    public string Color { get; private set; }
 
     private readonly List<Course> _courses = new ();
     public IReadOnlyCollection<Course> Courses => _courses;

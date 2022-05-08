@@ -18,7 +18,7 @@ service.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 service.AddMediatR(Assembly.Load("DataPush.Domain"));
 service.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(connectionString)
     .ConfigureLoggingCacheTime(TimeSpan.FromMinutes(5)));
-service.AddTransient<ISegmentRepository, SegmentRepository>();
+service.AddDependences();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
