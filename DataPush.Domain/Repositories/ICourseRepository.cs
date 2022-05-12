@@ -4,8 +4,8 @@ namespace DataPush.Domain.Repositories;
 
 public interface ICourseRepository
 {
-    public Course Get(Guid id);
-    public IEnumerable<Course> Get();
-    public IEnumerable<Course> GetCoursesBySegmentId(Guid id);
-    public void Save(Course course);
+    Task<Course> Get(Guid id);
+    Task<IEnumerable<Course>> Get();
+    Task<IEnumerable<Course>> GetCoursesBySegmentId(Guid id);
+    void Save(Course course);
 }

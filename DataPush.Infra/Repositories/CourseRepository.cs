@@ -11,25 +11,25 @@ public class CourseRepository : ICourseRepository
     public CourseRepository(ApplicationContext context)
         => _context = context;
 
-    public Course Get(Guid id)
-        => _context.Courses
+    public async Task<Course> Get(Guid id)
+        => await _context.Courses
             .Include(x => x.Segment)
-            .FirstOrDefault(x => id.Equals(x.Id));
+            .FirstOrDefaultAsync(x => id.Equals(x.Id));
 
-    public IEnumerable<Course> Get()
-        => _context.Courses
+    public async Task<IEnumerable<Course>> Get()
+        => await _context.Courses
             .Include(x => x.Segment)
             .OrderBy(x => x.Name)
             .ThenBy(x => x.Segment.Name)
-            .ToArray();
+            .ToArrayAsync();
 
-    public IEnumerable<Course> GetCoursesBySegmentId(Guid id)
-        => _context.Courses
+    public async Task<IEnumerable<Course>> GetCoursesBySegmentId(Guid id)
+        => await _context.Courses
             .Where(x => id.Equals(x.SegmentId))
             .Include(x => x.Segment)
             .OrderBy(x => x.Name)
             .ThenBy(x => x.Segment.Name)
-            .ToArray();
+            .ToArrayAsync();
 
     public void Save(Course course)
     {

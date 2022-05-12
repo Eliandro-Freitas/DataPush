@@ -6,11 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Input\" />
-    <Folder Include="Commands\Output\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Flunt" Version="1.0.4" />
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.4" />

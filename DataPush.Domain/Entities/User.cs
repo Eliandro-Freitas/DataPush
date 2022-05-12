@@ -2,6 +2,14 @@
 
 public class User : BaseEntity
 {
+    public User(string name, string document, string password, string email)
+    {
+        Name = name;
+        Document = document;
+        Password = password;
+        Email = email;
+    }
+
     public string Name { get; set; }
     public string Document { get; set; }
     public string Password { get; set; }

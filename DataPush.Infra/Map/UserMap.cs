@@ -10,6 +10,6 @@ public class UserMap : IEntityTypeConfiguration<User>
     {
         builder.ToTable("Users");
         builder.HasKey(x => x.Id);
-        builder.HasMany(x => x.Questions).WithMany(x => x.Users);
+        builder.HasMany(x => x.Questions).WithOne(x => x.User).HasForeignKey(x => x.UserId);
     }
 }

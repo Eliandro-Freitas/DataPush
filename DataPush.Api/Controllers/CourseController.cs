@@ -19,9 +19,9 @@ namespace DataPush.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CourseResult[]))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("v1/courses")]
-        public ActionResult<Task> GetCourses()
+        public async Task<IActionResult> GetCourses()
         {
-            var courses = _courseRepository.Get();
+            var courses = await _courseRepository.Get();
             if (courses is null || !courses.Any()) return NotFound("Nenhum Curso encontrado");
 
             var coursesResult = _mapper.Map<IEnumerable<CourseResult>>(courses);
@@ -31,9 +31,9 @@ namespace DataPush.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CourseResult))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("v1/courses/{courseId:Guid}")]
-        public ActionResult<Task> GetCourse(Guid courseId)
+        public async Task<IActionResult> GetCourse(Guid courseId)
         {
-            var courses = _courseRepository.Get(courseId);
+            var courses = await _courseRepository.Get(courseId);
             if (courses is null) return NotFound($"Curso não encontrado ({courseId})");
 
             var coursesResult = _mapper.Map<CourseResult>(courses);
@@ -43,9 +43,9 @@ namespace DataPush.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CourseResult))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("v1/courses/segments/{segmentId:Guid}")]
-        public ActionResult<Task> GetCoursesBySegmentId(Guid segmentId)
+        public async Task<IActionResult> GetCoursesBySegmentId(Guid segmentId)
         {
-            var courses = _courseRepository.GetCoursesBySegmentId(segmentId);
+            var courses = await _courseRepository.GetCoursesBySegmentId(segmentId);
             if (courses is null) return NotFound("Nenhum Curso encontrado");
 
             var coursesResult = _mapper.Map<IEnumerable<CourseResult>>(courses);

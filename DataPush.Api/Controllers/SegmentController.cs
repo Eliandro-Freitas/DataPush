@@ -19,9 +19,9 @@ namespace DataPush.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SegmentResult[]))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("v1/segments")] 
-        public ActionResult<Task> GetSegments()
+        public async Task<IActionResult> GetSegments()
         {
-            var segments = _segmentRepository.Get();
+            var segments = await _segmentRepository.Get();
             if (segments is null || !segments.Any()) return BadRequest("Nenhum segmento encontrado");
 
             var segmentsResult = _mapper.Map<IEnumerable<SegmentResult>>(segments);
@@ -31,9 +31,9 @@ namespace DataPush.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SegmentResult))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [HttpGet("v1/segments/{segmentId:Guid}")]
-        public ActionResult<Task> GetSegment(Guid segmentId)
+        public async Task<IActionResult> GetSegment(Guid segmentId)
         {
-            var segments = _segmentRepository.Get(segmentId);
+            var segments = await _segmentRepository.Get(segmentId);
             if (segments is null) return BadRequest("Segmento não encontrado");
 
             var segmentsResult = _mapper.Map<SegmentResult>(segments);
