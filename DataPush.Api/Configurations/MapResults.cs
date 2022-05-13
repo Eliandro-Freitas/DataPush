@@ -11,7 +11,6 @@ namespace DataPush.Api.Configurations
             CourseMap();
             SegmentMap();
             AnswerMap();
-            QuestionMap();
         }
 
         private void CourseMap() 
@@ -39,15 +38,6 @@ namespace DataPush.Api.Configurations
                     map => map.MapFrom(destination => destination.Name))
                 .ForMember(destination => destination.Color,
                     map => map.MapFrom(destination => destination.Color));
-
-        private void QuestionMap()
-            => CreateMap<Question, QuestionResult>()
-                .ForMember(destination => destination.Id,
-                    map => map.MapFrom(source => source.Id))
-                .ForMember(destination => destination.Message,
-                    map => map.MapFrom(source => source.Message))
-                .ForMember(destination => destination.Answers,
-                    map => map.MapFrom(source => source.Answers));
 
         private void AnswerMap()
             => CreateMap<Answer, AnswerResult>()

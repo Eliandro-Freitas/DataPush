@@ -1,7 +1,5 @@
 using DataPush.Api.Configurations;
-using DataPush.Domain.Repositories;
 using DataPush.Infra;
-using DataPush.Infra.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -19,6 +17,7 @@ service.AddMediatR(Assembly.Load("DataPush.Domain"));
 service.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(connectionString)
     .ConfigureLoggingCacheTime(TimeSpan.FromMinutes(5)));
 service.AddDependences();
+service.AddMediatR(Assembly.Load("DataPush.Domain"));
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

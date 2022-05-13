@@ -1,5 +1,6 @@
 ﻿using DataPush.Domain.Entities;
 using DataPush.Domain.Repositories;
+using DataPush.Domain.Results;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataPush.Infra.Repositories;
@@ -43,8 +44,48 @@ public class ForumRepository : IForumRepository
     public async Task<Question> GetQuestion(Guid Id)
         => await _context.Set<Question>().FirstOrDefaultAsync(x => Id.Equals(x.Id));
 
-    public async Task<IEnumerable<Question>> GetQuestions()
-        => await _context.Set<Question>().Include(x => x.Answers).ToArrayAsync();
+    public async Task<QuestionResult> GetQuestionResult(Guid Id)
+    {
+        var answerResult = _context.Set<Answer>().Select(x => new QuestionResult.Answer(x.Id, x.Message)).ToList();
+        return await
+            (from question in _context.Set<Question>().AsNoTracking()
+             join answer in _context.Set<Answer>() on question.Id equals answer.QuestionId
+             join user in _context.Set<User>() on question.UserId equals user.Id
+             where Id.Equals(question.Id)
+             select new QuestionResult 
+             {
+                 Id = question.Id,
+                 Message = question.Message,
+                 UserId = user.Id,
+                 UserName = user.Name,
+                 Answers = answerResult
+             })
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<IEnumerable<QuestionResult>> GetQuestionsResult()
+    {
+        return await
+            (from question in _context.Set<Question>().AsNoTracking()
+             join user in _context.Set<User>() on question.UserId equals user.Id
+             group question by new 
+             { 
+                 question.Id,
+                 question.Message,
+                 question.UserId,
+                 user.Name
+             }
+             into grouped
+             select new QuestionResult
+             {
+                 Id = grouped.Key.Id,
+                 Message = grouped.Key.Message,
+                 UserId = grouped.Key.UserId,
+                 UserName = grouped.Key.Name,
+                 Answers = _context.Set<Answer>().Where(x => grouped.Key.Id.Equals(x.QuestionId)).Select(x => new QuestionResult.Answer(x.Id, x.Message)).ToArray()
+             })
+            .ToArrayAsync();
+    }
 
     public void Save(Question question)
     {

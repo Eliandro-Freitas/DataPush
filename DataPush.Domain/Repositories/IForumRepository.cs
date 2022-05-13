@@ -1,4 +1,5 @@
 ﻿using DataPush.Domain.Entities;
+using DataPush.Domain.Results;
 
 namespace DataPush.Domain.Repositories;
 
@@ -8,7 +9,8 @@ public interface IForumRepository
     void UpdateQuestion(Question question);
     void DeleteQuestion(Guid id);
     Task<Question> GetQuestion(Guid Id);
-    Task<IEnumerable<Question>> GetQuestions();
+    Task<QuestionResult> GetQuestionResult(Guid Id);
+    Task<IEnumerable<QuestionResult>> GetQuestionsResult();
 
     void Save(Answer answer);
     void UpdateAnswer(Answer answer);
