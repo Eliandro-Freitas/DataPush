@@ -1,8 +1,6 @@
 using DataPush.Api.Configurations;
 using DataPush.Infra;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false, true).Build();
@@ -13,11 +11,9 @@ service.AddControllers();
 service.AddEndpointsApiExplorer();
 service.AddSwaggerGen();
 service.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-service.AddMediatR(Assembly.Load("DataPush.Domain"));
 service.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(connectionString)
     .ConfigureLoggingCacheTime(TimeSpan.FromMinutes(5)));
 service.AddDependences();
-service.AddMediatR(Assembly.Load("DataPush.Domain"));
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

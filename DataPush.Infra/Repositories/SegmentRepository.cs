@@ -12,10 +12,10 @@ public class SegmentRepository : ISegmentRepository
         => _context = context;
 
     public async Task<Segment> Get(Guid id)
-        => await _context.Segments.FirstOrDefaultAsync(x => id == x.Id);
+        => await _context.Set<Segment>().FirstOrDefaultAsync(x => id == x.Id);
 
     public async Task<IEnumerable<Segment>> Get()
-        => await _context.Segments.ToArrayAsync();
+        => await _context.Set<Segment>().ToArrayAsync();
 
     public void Save(Segment segment)
     {

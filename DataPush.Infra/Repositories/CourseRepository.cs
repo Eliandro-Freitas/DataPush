@@ -12,19 +12,19 @@ public class CourseRepository : ICourseRepository
         => _context = context;
 
     public async Task<Course> Get(Guid id)
-        => await _context.Courses
+        => await _context.Set<Course>()
             .Include(x => x.Segment)
             .FirstOrDefaultAsync(x => id.Equals(x.Id));
 
     public async Task<IEnumerable<Course>> Get()
-        => await _context.Courses
+        => await _context.Set<Course>()
             .Include(x => x.Segment)
             .OrderBy(x => x.Name)
             .ThenBy(x => x.Segment.Name)
             .ToArrayAsync();
 
     public async Task<IEnumerable<Course>> GetCoursesBySegmentId(Guid id)
-        => await _context.Courses
+        => await _context.Set<Course>()
             .Where(x => id.Equals(x.SegmentId))
             .Include(x => x.Segment)
             .OrderBy(x => x.Name)
