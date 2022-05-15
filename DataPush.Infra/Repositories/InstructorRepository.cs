@@ -25,11 +25,9 @@ public class InstructorRepository : IInstructorRepository
 
     public async Task<Instructor> Get(Guid id)
         => await _context.Set<Instructor>()
-            .Include(x => x.Lessons)
             .FirstOrDefaultAsync(x => id.Equals(x.Id));
 
     public async Task<IEnumerable<Instructor>> Get()
         => await _context.Set<Instructor>()
-            .Include(x => x.Lessons)
             .ToArrayAsync();
 }
