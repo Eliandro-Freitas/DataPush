@@ -8,7 +8,7 @@ namespace DataPush.Infra.Map
     {
         public void Configure(EntityTypeBuilder<Instructor> builder)
         {
-            builder.ToTable("Instructor");
+            builder.ToTable("Instructors");
             builder.HasKey(x => x.Id);
         }
     }

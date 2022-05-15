@@ -21,5 +21,13 @@
 
         public Instructor Instructor { get; set; }
         public Segment Segment { get; set; }
+
+        public void Update(string tittle, Guid segmentId, DateTime date, string url)
+        {
+            Tittle = tittle;
+            SegmentId = segmentId;
+            Date = date;
+            Url = url;
+        }
     }
 }

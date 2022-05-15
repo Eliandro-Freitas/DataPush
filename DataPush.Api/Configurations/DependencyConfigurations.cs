@@ -11,6 +11,8 @@ namespace DataPush.Api.Configurations
             service.AddTransient<IForumRepository, ForumRepository>();
             service.AddTransient<ICourseRepository, CourseRepository>();
             service.AddTransient<IUserRepository, UserRepository>();
+            service.AddTransient<IInstructorRepository, InstructorRepository>();
+            service.AddTransient<ILessonRepository, LessonRepository>();
         }
     }
 }

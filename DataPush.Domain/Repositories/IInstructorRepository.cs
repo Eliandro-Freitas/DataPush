@@ -2,7 +2,7 @@
 
 namespace DataPush.Domain.Repositories;
 
-public interface IInstructorRepositor
+public interface IInstructorRepository
 {
     void Save(Instructor instructor);
     void Delete(Instructor instructor);

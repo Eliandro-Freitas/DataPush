@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataPush.Infra.Repositories;
 
-public class InstructorRepository : IInstructorRepositor
+public class InstructorRepository : IInstructorRepository
 {
     private readonly ApplicationContext _context;
 
@@ -19,13 +19,17 @@ public class InstructorRepository : IInstructorRepositor
 
     public void Save(Instructor instructor)
     {
-        _context.Add(instructor);
+        _context.Set<Instructor>().Add(instructor);
         _context.SaveChanges();
     }
 
     public async Task<Instructor> Get(Guid id)
-        => await _context.Set<Instructor>().FirstOrDefaultAsync(x => id.Equals(x.Id));
+        => await _context.Set<Instructor>()
+            .Include(x => x.Lessons)
+            .FirstOrDefaultAsync(x => id.Equals(x.Id));
 
     public async Task<IEnumerable<Instructor>> Get()
-        => await _context.Set<Instructor>().ToArrayAsync();
+        => await _context.Set<Instructor>()
+            .Include(x => x.Lessons)
+            .ToArrayAsync();
 }

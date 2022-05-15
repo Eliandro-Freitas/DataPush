@@ -4,15 +4,15 @@ public class Instructor : BaseEntity
 {
     public Instructor() { }
 
-    public Instructor(int name, int password, Guid segmentId)
+    public Instructor(string name, string password, Guid segmentId)
     {
         Name = name;
         Password = password;
         SegmentId = segmentId;
     }
 
-    public int Name { get; set; }
-    public int Password { get; set; }
+    public string Name { get; set; }
+    public string Password { get; set; }
     public Guid SegmentId { get; set; }
 
     public Segment Segment { get; set; }
