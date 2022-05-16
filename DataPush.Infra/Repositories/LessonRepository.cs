@@ -15,7 +15,7 @@ public class LessonRepository : ILessonRepository
         => await _context.Set<Lesson>().FirstOrDefaultAsync();
 
     public async Task<IEnumerable<Lesson>> Get()
-        => await _context.Set<Lesson>().ToArrayAsync();
+        => await _context.Set<Lesson>().Include(x => x.Segment).ToArrayAsync();
 
     public void Save(Lesson lesson)
     {

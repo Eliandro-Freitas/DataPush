@@ -77,7 +77,7 @@ public class ForumController : Controller
 
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [HttpPost("v1/forum/answers/{anserId:guid}")]
+    [HttpPut("v1/forum/answers/{anserId:guid}")]
     public async Task<IActionResult> PutAnswer(Guid id, [FromBody] UpdateAnswerCommand command)
     {
         command.Id = id;
