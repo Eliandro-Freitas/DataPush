@@ -19,7 +19,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(x => x.SwaggerEndpoint("v1/swagger", "Thoth"));
+    app.UseSwaggerUI(x => 
+    {
+        x.SwaggerEndpoint("/swagger/v1/swagger.json", "Thoth");
+        x.RoutePrefix = string.Empty;
+    });
 }
 app.UseHttpsRedirection();
 app.UseAuthorization();
