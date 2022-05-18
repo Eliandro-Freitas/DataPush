@@ -14,11 +14,11 @@ namespace DataPush.Api.Controllers
 
         [HttpGet("v1/lessons")]
         public async Task<IActionResult> GetLessons()
-            => Ok(await _lessonRepository.Get());
+            => Ok(await _lessonRepository.GetLessonsResult());
 
         [HttpGet("v1/lessons/{lessonId:guid}")]
         public async Task<IActionResult> GetLesson(Guid lessonId)
-            => Ok(await _lessonRepository.Get(lessonId));
+            => Ok(await _lessonRepository.GetLessonResult(lessonId));
 
         [HttpPost("v1/lessons")]
         public async Task<IActionResult> PostLesson([FromBody] CreateLessonCommand command)
