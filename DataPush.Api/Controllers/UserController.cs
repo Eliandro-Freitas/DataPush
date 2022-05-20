@@ -12,9 +12,9 @@ namespace DataPush.Api.Controllers
         public UserController(IUserRepository userRepository)
             => _userRepository = userRepository;
 
-        [HttpGet("v1/users/verify-login")]
+        [HttpGet("v1/users/authenticate")]
         public async Task<IActionResult> VerifyLogin([FromBody] VerifyUserLoginCommand command)
-            => Ok(await _userRepository.VerifyLogin(command.Email, command.Password));
+            => Ok(await _userRepository.Authenticate(command.Email, command.Password));
 
         [HttpGet("v1/users")]
         public async Task<IActionResult> GetUsers()

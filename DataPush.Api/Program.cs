@@ -14,6 +14,10 @@ service.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 service.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(connectionString)
     .ConfigureLoggingCacheTime(TimeSpan.FromMinutes(5)));
 service.AddDependences();
+service.AddCors(x =>
+{
+    x.AddPolicy(name: "LocalHost", x => x.WithOrigins("http://localhost:8080/"));
+});
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

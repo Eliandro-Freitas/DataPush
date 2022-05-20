@@ -17,7 +17,7 @@ public class ForumController : Controller
     [HttpPost("v1/forum/questions")]
     public IActionResult PostQuestion([FromBody] CreateQuestionCommand command)
     {
-        var question = new Question(command.Message, command.UserId);
+        var question = new Question(command.Message, command.Title, command.UserId);
         _forumRepository.Save(question);
         return Ok($"Pergunta salva ({question.Id})");
     }
@@ -29,7 +29,7 @@ public class ForumController : Controller
     {
         command.Id = id;
         var question = await _forumRepository.GetQuestion(id);
-        question.Update(command.Message);
+        question.Update(command.Title, command.Message);
         _forumRepository.UpdateQuestion(question);
         return Ok($"Pergunta atualizada ({question.Id})");
     }
@@ -71,7 +71,7 @@ public class ForumController : Controller
         command.QuestionId = questionId;
         var answer = new Answer(command.Message, command.QuestionId);
         if (answer is null) return BadRequest();
-
+        _forumRepository.Save(answer);
         return Ok($"Resposta salva ({answer.Id})");
     }
 

@@ -9,6 +9,7 @@ public class Answer : BaseEntity
     }
 
     public string Message { get; set; }
+    public DateTime Date { get; set; } = DateTime.Now;
     public Guid QuestionId { get; set; }
 
     public Question Question { get; set; }

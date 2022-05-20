@@ -22,10 +22,10 @@ namespace DataPush.Api.Controllers
 
         [HttpGet("v1/instructors")]
         public async Task<IActionResult> GetInstructors()
-            => Ok(await _instructorRepositor.Get());
+            => Ok(await _instructorRepositor.GetInstructorResults());
 
         [HttpGet("v1/instructors/{instructorId:guid}")]
         public async Task<IActionResult> GetInstructor(Guid instructorId)
-            => Ok(await _instructorRepositor.Get(instructorId));
+            => Ok(await _instructorRepositor.GetInstructorResult(instructorId));
     }
 }

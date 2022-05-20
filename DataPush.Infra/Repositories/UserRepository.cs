@@ -23,7 +23,7 @@ public class UserRepository : IUserRepository
         _context.SaveChanges();
     }
 
-    public async Task<bool> VerifyLogin(string email, string password)
+    public async Task<bool> Authenticate(string email, string password)
         =>  await _context.Set<User>()
             .AnyAsync(x => email == x.Email 
                    && password == x.Password);
