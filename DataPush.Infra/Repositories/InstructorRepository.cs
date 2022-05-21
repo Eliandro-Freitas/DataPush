@@ -36,12 +36,12 @@ public class InstructorRepository : IInstructorRepository
         => await _context.Set<Instructor>()
             .AsNoTrackingWithIdentityResolution()
             .Where(x => id.Equals(x.Id))
-            .Select(x => new InstructorResult(x.Name, x.Password, x.Segment.Name, x.Segment.Color))
+            .Select(x => new InstructorResult(x.Id, x.Name, x.Password, x.Segment.Name, x.Segment.Color))
             .FirstOrDefaultAsync();
 
     public async Task<IEnumerable<InstructorResult>> GetInstructorResults()
         => await _context.Set<Instructor>()
             .AsNoTrackingWithIdentityResolution()
-            .Select(x => new InstructorResult(x.Name, x.Password, x.Segment.Name, x.Segment.Color))
+            .Select(x => new InstructorResult(x.Id, x.Name, x.Password, x.Segment.Name, x.Segment.Color))
             .ToArrayAsync();
 }

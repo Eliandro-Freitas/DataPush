@@ -19,7 +19,7 @@ public class LessonRepository : ILessonRepository
              join instructor in _context.Set<Instructor>() on lesson.InstructorId equals instructor.Id
              where id.Equals(lesson.Id)
              select new LessonResult(
-                 lesson.Tittle,
+                 lesson.Title,
                  lesson.Date,
                  lesson.Url,
                  instructor.Name)
@@ -34,7 +34,7 @@ public class LessonRepository : ILessonRepository
              join segment in _context.Set<Segment>() on lesson.SegmentId equals segment.Id
              join instructor in _context.Set<Instructor>() on lesson.InstructorId equals instructor.Id
              select new LessonResult(
-                 lesson.Tittle,
+                 lesson.Title,
                  lesson.Date,
                  lesson.Url,
                  instructor.Name)

@@ -4,16 +4,16 @@
     {
         public Lesson() { }
 
-        public Lesson(string tittle, Guid segmentId, DateTime date, string url, Guid instructorId)
+        public Lesson(string title, Guid segmentId, DateTime date, string url, Guid instructorId)
         {
-            Tittle = tittle;
+            Title = title;
             SegmentId = segmentId;
             Date = date;
             Url = url;
             InstructorId = instructorId;
         }
 
-        public string Tittle { get; set; }
+        public string Title { get; set; }
         public Guid SegmentId { get; set; }
         public DateTime Date { get; set; }
         public string Url { get; set; }
@@ -22,9 +22,9 @@
         public Instructor Instructor { get; set; }
         public Segment Segment { get; set; }
 
-        public void Update(string tittle, Guid segmentId, DateTime date, string url)
+        public void Update(string title, Guid segmentId, DateTime date, string url)
         {
-            Tittle = tittle;
+            Title = title;
             SegmentId = segmentId;
             Date = date;
             Url = url;
