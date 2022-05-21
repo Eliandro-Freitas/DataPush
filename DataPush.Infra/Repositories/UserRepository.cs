@@ -23,8 +23,7 @@ public class UserRepository : IUserRepository
         _context.SaveChanges();
     }
 
-    public async Task<bool> Authenticate(string email, string password)
-        =>  await _context.Set<User>()
-            .AnyAsync(x => email == x.Email 
-                   && password == x.Password);
+    public Guid? Authenticate(string email, string password)
+        =>  _context.Set<User>()
+            .FirstOrDefault(x => email == x.Email && password == x.Password)?.Id;
 }
