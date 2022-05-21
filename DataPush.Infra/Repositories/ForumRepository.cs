@@ -46,7 +46,7 @@ public class ForumRepository : IForumRepository
 
     public async Task<QuestionResult> GetQuestionResult(Guid Id)
     {
-        var answerResult = _context.Set<Answer>().Select(x => new QuestionResult.Answer(x.Id, x.Message, x.Date)).ToList();
+        var answerResult = _context.Set<Answer>().Where(x => Id.Equals(x.QuestionId)).Select(x => new QuestionResult.Answer(x.Id, x.Message, x.Date)).ToList();
         return await
             (from question in _context.Set<Question>().AsNoTracking()
              join answer in _context.Set<Answer>() on question.Id equals answer.QuestionId

@@ -19,7 +19,7 @@ public class ForumController : Controller
     {
         var question = new Question(command.Message, command.Title, command.UserId);
         _forumRepository.Save(question);
-        return Ok($"Pergunta salva ({question.Id})");
+        return Ok(question.Id);
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -31,7 +31,7 @@ public class ForumController : Controller
         var question = await _forumRepository.GetQuestion(id);
         question.Update(command.Title, command.Message);
         _forumRepository.UpdateQuestion(question);
-        return Ok($"Pergunta atualizada ({question.Id})");
+        return Ok(question.Id);
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -72,7 +72,7 @@ public class ForumController : Controller
         var answer = new Answer(command.Message, command.QuestionId);
         if (answer is null) return BadRequest();
         _forumRepository.Save(answer);
-        return Ok($"Resposta salva ({answer.Id})");
+        return Ok(answer.Id);
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -86,7 +86,7 @@ public class ForumController : Controller
         _forumRepository.UpdateAnswer(answer);
         if (answer is null) return BadRequest();
 
-        return Ok($"Resposta atualizada ({answer.Id})");
+        return Ok(answer.Id);
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]

@@ -29,7 +29,7 @@ namespace DataPush.Api.Controllers
         {
             var user = new User(command.Name, command.Document, command.Password, command.Email);
             _userRepository.Save(user);
-            return Ok($"Usuário criado ({user.Id})");
+            return Ok(user.Id);
         }
     }
 }
