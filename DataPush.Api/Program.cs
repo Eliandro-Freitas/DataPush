@@ -14,10 +14,7 @@ service.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 service.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(connectionString)
     .ConfigureLoggingCacheTime(TimeSpan.FromMinutes(5)));
 service.AddDependences();
-service.AddCors(x =>
-{
-    x.AddDefaultPolicy(/*name: "LocalHost", */x => x.WithOrigins("http://localhost:8080/"));
-});
+service.AddCors();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -26,7 +23,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
-app.UseCors();
+app.UseCors(builder => builder
+                .AllowCredentials()
+                .SetIsOriginAllowed(_ => true)
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
