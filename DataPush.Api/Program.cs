@@ -16,7 +16,7 @@ service.AddDbContext<ApplicationContext>(opt => opt.UseSqlServer(connectionStrin
 service.AddDependences();
 service.AddCors(x =>
 {
-    x.AddPolicy(name: "LocalHost", x => x.WithOrigins("http://localhost:8080/"));
+    x.AddDefaultPolicy(/*name: "LocalHost", */x => x.WithOrigins("http://localhost:8080/"));
 });
 
 var app = builder.Build();
@@ -26,6 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseHttpsRedirection();
+app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
