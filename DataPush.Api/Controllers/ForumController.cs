@@ -46,7 +46,7 @@ public class ForumController : Controller
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(QuestionResult[]))]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [HttpGet("v1/forum/questions/{id:guid}")]
-    public async Task<IActionResult> GetQuestions(Guid id)
+    public async Task<IActionResult> GetQuestion(Guid id)
     {
         var questions = await _forumRepository.GetQuestionResult(id);
         return Ok(questions);

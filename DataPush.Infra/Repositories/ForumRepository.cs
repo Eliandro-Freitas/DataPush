@@ -49,8 +49,9 @@ public class ForumRepository : IForumRepository
         var answerResult = _context.Set<Answer>().Where(x => Id.Equals(x.QuestionId)).Select(x => new QuestionResult.Answer(x.Id, x.Message, x.Date)).ToList();
         return await
             (from question in _context.Set<Question>().AsNoTracking()
-             join answer in _context.Set<Answer>() on question.Id equals answer.QuestionId
              join user in _context.Set<User>() on question.UserId equals user.Id
+             join _ in _context.Set<Answer>() on question.Id equals _.QuestionId into Answers
+             from answers in Answers.DefaultIfEmpty()
              where Id.Equals(question.Id)
              select new QuestionResult
              {
